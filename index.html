@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Pelanggan Baru</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Input Data Pelanggan</h2>
+        
+        <form id="formTagihan" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Nama Pelanggan</label>
+                <input type="text" id="nama" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">ID Cust</label>
+                <input type="text" id="idCust" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">No Telefon (Contoh: 0812...)</label>
+                <input type="text" id="telepon" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Tanggal Bayar</label>
+                <input type="date" id="tanggalBayar" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Tanggal Berakhir</label>
+                <input type="date" id="tanggalBerakhir" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Site</label>
+                <input type="text" id="site" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                Simpan Data
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("formTagihan").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // GANTI URL DI BAWAH INI DENGAN URL WEB APP MILIKMU
+            const webAppUrl = "URL_WEB_APP_KAMU_DISINI"; 
+            
+            const data = {
+                nama: document.getElementById("nama").value,
+                idCust: document.getElementById("idCust").value,
+                telepon: document.getElementById("telepon").value,
+                tanggalBayar: document.getElementById("tanggalBayar").value,
+                tanggalBerakhir: document.getElementById("tanggalBerakhir").value,
+                site: document.getElementById("site").value
+            };
+            
+            fetch(webAppUrl, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === "sukses") {
+                    alert("Data berhasil disimpan!");
+                    document.getElementById("formTagihan").reset();
+                } else {
+                    alert("Terjadi kesalahan.");
+                }
+            })
+            .catch(error => {
+                alert("Gagal menghubungi server.");
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+</html>
